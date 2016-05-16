@@ -59,7 +59,7 @@ namespace :gc_sync_tasks do
 				end
 			end
 		else
-			puts "configuration is not set, please view the plugin configuration for task calendar".red
+			puts "configuration is not set, please view the plugin configuration for task calendar"#.red
 		end
 	end
 end
