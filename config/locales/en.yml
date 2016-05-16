@@ -1,0 +1,17 @@
+en:
+  setup_instruction: "Configuration Instruction"
+  uses_api: "This plugin uses this google calendar api"
+  optain_confs: "For more information about how to get the client id , client secret etc ... visit the git of the API "
+  here: "Here"
+  click_link: "Click on the link, you'll be redirected to a google page to autorise the app to communicate with your calendar. Copy and paste the code you'll find in connection code field and click on apply"
+  fill_blanks: "Fill first you Cliend ID, Client Secret and Calendar IDs and the click on apply. A link will appear to have your connection code."
+  save_again: "You notice the refresh token field is filled. Click again on apply button to save all parametres. Plugin configuration is done like this."
+  google_cliend_id: "Google Client ID"
+  google_client_secret: "Google Client Secret"
+  google_connection_code: "Connection Code"
+  error_connection: "Google connection error, please change a new connection code"
+  filter_explain_text: "Select Status concerned to be synchronized with the calendar"
+  label_setting_custom_field_id_google_cal: "Custom field 'Google Calendar ID'"
+  label_setting_status: "Status"
+  label_setting_google_cal: "Google Calendar ID Global Delivery"
+
