@@ -16,9 +16,7 @@ I'm not a ruby programmer, so i'm started from [Redmine GC Sync](https://github.
 	rake redmine:plugins:migrate RAILS_ENV=production
 	```
 * Restart your Redmine web server 
-	```console
-	service apache2 restart
-	```
+	``` service apache2 restart ```
 
 ## Plugin Configuration
 
@@ -51,16 +49,19 @@ Go to ``` Administration >  Plugins > Mega Calendar: Gc Sync plugin : Configure 
 Thera are some rake task:
 
  * **gc_sync_add** to run just one time to synchronize all issues and events that repect the filter rule you configured
- run this on the redmine root 
+ 	* run this on the redmine root
 
-	```	rake gc_sync_add:exec RAILS_ENV="production" ```
+	``` rake gc_sync_add:exec RAILS_ENV="production" ```
  
  * **gc_sync_del** to run just one time to delete all syncronized Issues and Events
- run this on the redmine root 
+ 	* run this on the redmine root 
 
 	``` rake gc_sync_del:exec RAILS_ENV="production" ```
 
  * **gc_sync_get** to run in cron to update date and time of previous syncronized Issues and Events from Google Calendar
+ 	* run this on the redmine root 
+
+	``` rake gc_sync_get:exec RAILS_ENV="production" ```
 
 ## Uninstallation
 
