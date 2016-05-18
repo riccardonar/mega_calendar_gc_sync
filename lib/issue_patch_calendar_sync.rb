@@ -9,12 +9,6 @@ module IssuePatchCalendarSync
 
   module InstanceMethods
 
-  def respect_filters
-    status = Setting.plugin_mega_calendar_gc_sync['status'].map{|id| id.to_i}
-    include_status = status.include? (self.status_id)
-    return self.respect_filters_mega_calendar && include_status
-  end
-
   def save_to_google_calendar
     evo = CalendarIssueEventSync.new
 
@@ -25,7 +19,6 @@ module IssuePatchCalendarSync
           event = CalendarIssueEventSync.new
         end
         event.issue_id = self.id
-        event.project_id = self.project_id
         begin
           event.save
         rescue Exception => e
@@ -39,5 +32,12 @@ module IssuePatchCalendarSync
       end
     end
   end
+
+  def respect_filters
+    status = Setting.plugin_mega_calendar_gc_sync['status'].map{|id| id.to_i}
+    include_status = status.include? (self.status_id)
+    return self.respect_filters_mega_calendar && include_status
+  end
+
   end
 end

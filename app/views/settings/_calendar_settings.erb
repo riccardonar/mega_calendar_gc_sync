@@ -79,15 +79,19 @@
 </br>
 <fieldset>
 <p>
-  <h2> <%= l(:filter_explain_text) %> </h2>
+  <h2><%= l(:filter_explain_text) %></h2>
 </p>
 <p>
   <%= label_tag('settings[custom_field_id_google_cal]', l(:label_setting_custom_field_id_google_cal)) %>
   <%= select_tag('settings[custom_field_id_google_cal]', options_for_select([['', 0]] + custom_fields_users.collect{|c| [c.name, c.id]}, (@settings['custom_field_id_google_cal'] || 0))) %>
 </p>
 <p>
-  <%= content_tag(:label, l(:label_setting_status) )%>
-  <%= select_tag 'settings[status][]' , options_for_select( IssueStatus.all.collect { |a| [a.name ,a.id]} ,@settings['status']), { :multiple => true, :size => IssueStatus.count } %>
+  <%= content_tag(:label, l(:label_setting_status)) %>
+  <%= select_tag 'settings[status][]' , options_for_select( IssueStatus.all.collect { |a| [a.name, a.id]}, @settings['status']), { :multiple => true, :size => IssueStatus.count } %>
+</p>
+<p>
+  <%= content_tag(:label, l(:label_setting_project_for_new_issues)) %>
+  <%= select_tag 'settings[project_for_new_issues]' , options_for_select( Project.all.collect { |a| [a.name, a.id]}, @settings['project_for_new_issues']) %>
 </p>
 </fieldset>
 <% end %>

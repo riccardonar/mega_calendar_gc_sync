@@ -1,0 +1,18 @@
+it:
+  setup_instruction: "Istruzioni di configurazione"
+  uses_api: "Questo plugin utilizza le API di Google calendar"
+  optain_confs: "Per maggiori informazioni su come recuperare il client id, client secret ecc... visita la pagina git API "
+  here: "qui"
+  click_link: "Premi il link, sarai reindirizzato alla pagina google per autorizzare l'app a comunicare con il tuo calendario. Copia ed incolla il codice che troverai nel campo connessione e premi su applica"
+  fill_blanks: "Inserisci prima il Cliend ID, Client Secret e Calendar IDs e premi il pulsante Applica. Un link apparirà per ottenere il codice di connessione."
+  save_again: "Nota che il campo refresh token è compilato. Premici ancora sul pulsante Applica per salvare tutti i parametri. La configurazione del plugin sarà completata."
+  google_cliend_id: "Google Client ID"
+  google_client_secret: "Google Client Secret"
+  google_connection_code: "Connection Code"
+  error_connection: "Google connection error, cambia il codice di connessione"
+  filter_explain_text: "Scegli gli Stati che devono essere sincronizzati con il calendario"
+  label_setting_custom_field_id_google_cal: "Campo personalizzato per 'Google Calendar ID'"
+  label_setting_status: "Stato"
+  label_setting_google_cal: "Google Calendar ID per l'invio globale"
+  label_setting_project_for_new_issues: "Progetto in cui importare le nuove segnalazioni"
+

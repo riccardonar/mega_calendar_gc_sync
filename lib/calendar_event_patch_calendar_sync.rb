@@ -9,10 +9,6 @@ module CalendarEventPatchCalendarSync
 
   module InstanceMethods
 
-  def respect_filters
-    return true
-  end
-
   def save_to_google_calendar
     evo = CalendarEventSync.new 
 
@@ -36,5 +32,10 @@ module CalendarEventPatchCalendarSync
       end
     end
   end
+
+  def respect_filters
+    return true
+  end
+
   end
 end

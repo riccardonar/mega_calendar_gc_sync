@@ -9,19 +9,19 @@ class CalendarEventSync < ActiveRecord::Base
   def delete_from_calendar
   	if calendar_ready 
   	  if self.event_id != nil
-    		begin
-	    	  cal = get_acces_to_google_calendar
-	    	  event_to_delete = cal.find_event_by_id(self.event_id)
+    	  begin
+	    	cal = get_acces_to_google_calendar
+	    	event_to_delete = cal.find_event_by_id(self.event_id)
 	        cal.delete_event(event_to_delete[0])
 	      rescue Exception => e
-          Rails.logger.error e.message
-          Rails.logger.error e.backtrace.inspect
+            Rails.logger.error e.message
+            Rails.logger.error e.backtrace.inspect
 	      end
       end
   	end
   end
 
-  def send_to_google_calendar 
+  def send_to_google_calendar
   	if calendar_ready
       calendar_event = CalendarEvent.find(self.calendar_event_id)
 
@@ -35,7 +35,7 @@ class CalendarEventSync < ActiveRecord::Base
         e.title = title
         e.start_time = calendar_event.start
         e.end_time = calendar_event.end
-	    e.description = calendar_event.title.tr("\r", '.').tr("\n", ' ').tr("\"", '')
+	    e.description = calendar_event.title.to_s.tr("\r", '.').tr("\n", ' ').tr("\"", '')
 	    e.attendees = attendee
 	    #e.status = 'tentative'
 	    e.visibility = 'default'
@@ -115,11 +115,11 @@ class CalendarEventSync < ActiveRecord::Base
     end
   end
 
-  def get_acces_to_google_calendar
+  def get_acces_to_google_calendar(calendar=nil)
   	cal = Google::Calendar.new(
   	  :client_id => Setting.plugin_mega_calendar_gc_sync['client_id'].to_s,
   	  :client_secret => Setting.plugin_mega_calendar_gc_sync['client_secret'].to_s,
-  	  :calendar => Setting.plugin_mega_calendar_gc_sync['calendar_task_id'].to_s,
+  	  :calendar => calendar ? calendar.to_s : Setting.plugin_mega_calendar_gc_sync['calendar_task_id'].to_s,
   	  :redirect_url => "urn:ietf:wg:oauth:2.0:oob",  # this is what Google uses for 'applications'
   	  :refresh_token => Setting.plugin_mega_calendar_gc_sync['refresh_token'].to_s
   	)

@@ -48,17 +48,19 @@ Go to ``` Administration >  Plugins > Mega Calendar: Gc Sync plugin : Configure 
 
 
 ## Tasks
-I've created a rake task to run just one time to synchronize all issues and events that repect the filter rule you configured 
+Thera are some rake task:
 
-run this on the redmine root 
+ * ##gc_sync_add## to run just one time to synchronize all issues and events that repect the filter rule you configured
+ run this on the redmine root 
 
-	``` rake gc_sync_tasks:exec RAILS_ENV="production" ```
+	```	rake gc_sync_add:exec RAILS_ENV="production" ```
+ 
+ * ##gc_sync_del## to run just one time to delete all syncronized Issues and Events
+ run this on the redmine root 
 
-Also, if you want to delelte all the synchornized Issues 
+	``` rake gc_sync_del:exec RAILS_ENV="production" ```
 
-run this on the redmine root 
-
-	``` rake delete_gc:exec RAILS_ENV="production" ```
+ * ##gc_sync_get## to run in cron to update date and time of previous syncronized Issues and Events from Google Calendar
 
 ## Uninstallation
 

@@ -1,7 +1,6 @@
 class CalendarIssueEventSync < ActiveRecord::Base
   unloadable
 
-  belongs_to :project
   belongs_to :issue
   
   before_save :send_to_google_calendar
@@ -10,14 +9,14 @@ class CalendarIssueEventSync < ActiveRecord::Base
   def delete_from_calendar
   	if calendar_ready 
   	  if self.event_id != nil
-    		begin
-	    	  cal = get_acces_to_google_calendar
-	    	  event_to_delete = cal.find_event_by_id(self.event_id)
-	        cal.delete_event(event_to_delete[0])
-	      rescue Exception => e
-          Rails.logger.error e.message
-          Rails.logger.error e.backtrace.inspect
-	      end
+         begin
+	       cal = get_acces_to_google_calendar
+	       event_to_delete = cal.find_event_by_id(self.event_id)
+	       cal.delete_event(event_to_delete[0])
+	     rescue Exception => e
+           Rails.logger.error e.message
+           Rails.logger.error e.backtrace.inspect
+	     end
       end
   	end
   end
@@ -25,32 +24,32 @@ class CalendarIssueEventSync < ActiveRecord::Base
   def send_to_google_calendar 
   	if calendar_ready
       issue = Issue.find(self.issue_id)
-	    project = Project.find_by_id(issue.project_id)
+	  project = Project.find_by_id(issue.project_id)
 
-	    parent_name = " [" + project.name + " ]"
+	  parent_name = " [" + project.name + " ]"
 
-	    p = project
-	    while p.parent != nil do 
-	      parent_name += " [" + p.parent.name  + " ]"
-	      p = p.parent
-	    end
+	  p = project
+	  while p.parent != nil do 
+	    parent_name += " [" + p.parent.name  + " ]"
+	    p = p.parent
+	  end
 
-	    title = issue.subject + '  #' +  self.issue_id.to_s + " " + parent_name.to_s
+	  title = issue.subject + '  #' +  self.issue_id.to_s + " " + parent_name.to_s
 
-	    issue_path = Setting.protocol + '://' + Setting.host_name + "/issues/" + self.issue_id.to_s
+	  issue_path = Setting.protocol + '://' + Setting.host_name + "/issues/" + self.issue_id.to_s
 
-	    cal = get_acces_to_google_calendar
-	    event = nil
-	    attendee = get_attendee(issue)
+	  cal = get_acces_to_google_calendar
+	  event = nil
+	  attendee = get_attendee(issue)
 
-	    event = cal.find_or_create_event_by_id(self.event_id) do |e|
-	      e.title = title
-          e.start_time = issue.start_calendar.to_s
-          e.end_time = issue.end_calendar.to_s
-	      e.description = issue.description.tr("\r", '.').tr("\n", ' ').tr("\"", '') + " (" + issue_path + ")"
-	      e.attendees = attendee
-	      #e.status = 'tentative'
-	      e.visibility = 'default'
+	  event = cal.find_or_create_event_by_id(self.event_id) do |e|
+	    e.title = title
+        e.start_time = issue.start_calendar.to_s
+        e.end_time = issue.end_calendar.to_s
+	    e.description = issue.description.to_s.tr("\r", '.').tr("\n", ' ').tr("\"", '') + " (" + issue_path + ")"
+	    e.attendees = attendee
+	    #e.status = 'tentative'
+	    e.visibility = 'default'
 	  end
       self.event_id = event.id
   	end
@@ -127,11 +126,11 @@ class CalendarIssueEventSync < ActiveRecord::Base
     end
   end
 
-  def get_acces_to_google_calendar
+  def get_acces_to_google_calendar(calendar=nil)
   	cal = Google::Calendar.new(
   	  :client_id => Setting.plugin_mega_calendar_gc_sync['client_id'].to_s,
   	  :client_secret => Setting.plugin_mega_calendar_gc_sync['client_secret'].to_s,
-  	  :calendar => Setting.plugin_mega_calendar_gc_sync['calendar_task_id'].to_s,
+  	  :calendar => calendar ? calendar.to_s : Setting.plugin_mega_calendar_gc_sync['calendar_task_id'].to_s,
   	  :redirect_url => "urn:ietf:wg:oauth:2.0:oob",  # this is what Google uses for 'applications'
   	  :refresh_token => Setting.plugin_mega_calendar_gc_sync['refresh_token'].to_s
   	)
