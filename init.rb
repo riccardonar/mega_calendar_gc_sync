@@ -16,7 +16,7 @@ Redmine::Plugin.register :mega_calendar_gc_sync do
   name 'Mega Calendar: Gc Sync plugin'
   author 'Riccardo Narduzzi'
   description 'This is a plugin for plugin Redmine Mega Calendar'
-  version '1.0.0'
+  version '1.0.1'
   url 'https://github.com/riccardonar/mega_calendar_gc_sync'
   author_url 'https://github.com/riccardonar'
 
