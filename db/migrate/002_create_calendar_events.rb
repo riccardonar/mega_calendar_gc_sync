@@ -1,4 +1,4 @@
-class CreateCalendarEventsSync < ActiveRecord::Migration
+class CreateCalendarEvents < ActiveRecord::Migration
   def self.up
     create_table :calendar_events_sync do |t|
     	t.column :calendar_event_id , :integer
